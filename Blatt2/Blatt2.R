@@ -70,8 +70,8 @@ PowerMethod(XdataMat, 2)
 
 # Aufgabe 2
 
-Hidden1 <- as.data.frame(t(read.csv('Hidden1.csv')))
-Hidden2 <- as.data.frame(t(read.csv('Hidden2.csv')))
+Hidden1 <- as.data.frame(t(read.csv('Hidden1.csv', header = F)))
+Hidden2 <- as.data.frame(t(read.csv('Hidden2.csv', header = F)))
 
 # (a)
 # Density of variables in Hidden1
