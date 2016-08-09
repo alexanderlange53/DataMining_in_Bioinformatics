@@ -17,6 +17,7 @@ source('PowerMethod.R')
 
 # Generatign random data
 TransMat <- matrix(c(0.25, 1.299, -0.433, 0.75), nrow = 2, byrow = T)
+# multiplying random data with deterministic matrix
 XdataMat <- TransMat%*%RandomData(2,100)
 
 # Centering Data
@@ -46,6 +47,7 @@ for(i in Samples){
 }
 
 # Illustration of rotation angle and sample sizes
+# the variance does not converge, due to the deterministic term
 PlotSamples(Output)
 
 # (b)
@@ -60,6 +62,8 @@ m <- 20
 IEigV <- IterEigv(CovMat, start, m)
 
 # Illustration of Convergence
+# multiplying any arbitray vector to the covariance matrix turns the vector into the direction of the
+# biggest variance
 PlotConv(IEigV, XdataMat)
 
 # (d)
@@ -75,6 +79,7 @@ Hidden2 <- as.data.frame(t(read.csv('Hidden2.csv', header = F)))
 
 # (a)
 # Density of variables in Hidden1
+# every dimension is asymptoticaly normal
 H1 <- melt(Hidden1)
 ggplot(H1, aes(H1$value)) + 
   geom_histogram(breaks=seq(min(H1$value), max(H1$value), by =10), 
@@ -82,7 +87,8 @@ ggplot(H1, aes(H1$value)) +
                  aes(fill=..count..)) + theme_bw(15) +
   facet_wrap(~ variable)
 
-# Density of variables in Hidden1
+# Density of variables in Hidden2
+# every dimension is asymptoticaly normal
 H2 <- melt(Hidden2)
 ggplot(H2, aes(H2$value)) + 
   geom_histogram(breaks=seq(min(H1$value), max(H1$value), by =10), 
@@ -96,11 +102,14 @@ ggpairs(Hidden1)
 
 # (c)
 # Eigenvalues 
+# intrinsic dimensionality is probably 2
 PlotEigen(Hidden1)
 PlotEigen(Hidden2)
 
 # (d)
 
+# Even if every dimension is normally distributed, there might be hidden structures, that are definitly not 
+# normal
 PCA1 <- c(eigen(cov(Hidden1))[[2]][,1])%*%as.matrix(t(Hidden1))
 PCA2 <- c(eigen(cov(Hidden1))[[2]][,2])%*%as.matrix(t(Hidden1))
 PCA <- as.data.frame(t(rbind(PCA1, PCA2)))

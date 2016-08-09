@@ -20,6 +20,7 @@ PlotCumSum(t(Ecoli))
 # PCA illustartion
 EcoliPCA <- eigen(cov(t(Ecoli)))$vectors[,c(1,2)]
 EcoliProj <- t(EcoliPCA)%*%as.matrix(Ecoli)
+# Data is grouped on intrinsic dimensions
 PlotPCAScat(EcoliProj, EcoliLab)
 
 # Same procedure with Bacillus subtilis data set
@@ -42,6 +43,7 @@ G <- GrammMat(D)
 EG <- eigs(G, 2)$vectors
 Z <- D%*%EG
 # Illustration of m. scaling
+# Eigenvectors of grammsche matrix gives scaled principal components
 PlotPCAScat(t(Z), EcoliLab)
 
 # Same with other data set

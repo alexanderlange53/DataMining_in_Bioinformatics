@@ -57,6 +57,8 @@ for(i in Samples){
 
 # Illustration of rotation angle and sample sizes
 # With increasing sample size, the effect of rotating the data set vanishes
+# by means of central limit theorem and convergence in probability the distribution of the variance 
+# collapse and convergence into a single value
 PlotSamples(Output)
 
 # Ex. 3
@@ -68,6 +70,7 @@ XdataMatCent <- XdataMat - mean(XdataMat)
 
 # Calculation of covariance matrix
 CovMat <- cov(t(XdataMat))
+# own implementation of covariance matrix
 (1/(ncol(XdataMat)-nrow(XdataMat)))*(XdataMatCent)%*%t(XdataMatCent)
 
 # rotation of covariance matrix
@@ -91,4 +94,6 @@ for(i in Samples){
 }
 
 # Illustration of rotation angle and sample sizes
+# This is equivalent to exercise 2 because v'Cv gives the eigenvalues of the covariance matrix,
+# which reflects the variance in the projected space
 PlotSamples(Output)
